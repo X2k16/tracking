@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'tracking',
+    'tracking.program',
+    'tracking.demo',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -103,3 +105,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = "unauthorized"
+
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend', 'tracking.auth.backends.TokenBackend')
