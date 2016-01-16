@@ -1,2 +1,4 @@
 django<1.9
 django-debug-toolbar
+djangorestframework
+django-filter

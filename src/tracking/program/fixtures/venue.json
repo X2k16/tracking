@@ -1,0 +1,50 @@
+[
+{
+  "pk": 1,
+  "fields": {
+    "ordering": 1,
+    "name": "\u5927\u4f1a\u5834"
+  },
+  "model": "program.venue"
+},
+{
+  "pk": 2,
+  "fields": {
+    "ordering": 2,
+    "name": "A\u4f1a\u5834"
+  },
+  "model": "program.venue"
+},
+{
+  "pk": 3,
+  "fields": {
+    "ordering": 3,
+    "name": "B\u4f1a\u5834"
+  },
+  "model": "program.venue"
+},
+{
+  "pk": 4,
+  "fields": {
+    "ordering": 4,
+    "name": "C\u4f1a\u5834"
+  },
+  "model": "program.venue"
+},
+{
+  "pk": 5,
+  "fields": {
+    "ordering": 5,
+    "name": "D\u4f1a\u5834"
+  },
+  "model": "program.venue"
+},
+{
+  "pk": 6,
+  "fields": {
+    "ordering": 6,
+    "name": "E\u4f1a\u5834"
+  },
+  "model": "program.venue"
+}
+]

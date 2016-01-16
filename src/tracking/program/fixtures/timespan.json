@@ -1,47 +1,47 @@
 [
 {
-  "pk": 1,
   "fields": {
-    "start_at": "11:20:00",
     "end_at": "12:40:00",
-    "name": "1st\u30bb\u30c3\u30b7\u30e7\u30f3"
+    "name": "\u30bb\u30c3\u30b7\u30e7\u30f31",
+    "start_at": "11:20:00"
   },
+  "pk": 1,
   "model": "program.timespan"
 },
 {
+  "fields": {
+    "end_at": "14:40:00",
+    "name": "\u30e9\u30f3\u30c1\u30bb\u30c3\u30b7\u30e7\u30f3",
+    "start_at": "13:30:00"
+  },
   "pk": 2,
-  "fields": {
-    "start_at": "13:00:00",
-    "end_at": "14:00:00",
-    "name": "\u30e9\u30f3\u30c1\u30bb\u30c3\u30b7\u30e7\u30f3"
-  },
   "model": "program.timespan"
 },
 {
-  "pk": 3,
   "fields": {
-    "start_at": "14:10:00",
     "end_at": "15:30:00",
-    "name": "2nd\u30bb\u30c3\u30b7\u30e7\u30f3"
+    "name": "\u30bb\u30c3\u30b7\u30e7\u30f32",
+    "start_at": "14:10:00"
   },
+  "pk": 3,
   "model": "program.timespan"
 },
 {
-  "pk": 4,
   "fields": {
-    "start_at": "15:50:00",
     "end_at": "17:10:00",
-    "name": "3rd\u30bb\u30c3\u30b7\u30e7\u30f3"
+    "name": "\u30bb\u30c3\u30b7\u30e7\u30f33",
+    "start_at": "15:50:00"
   },
+  "pk": 4,
   "model": "program.timespan"
 },
 {
-  "pk": 5,
   "fields": {
-    "start_at": "17:30:00",
     "end_at": "18:30:00",
-    "name": "4th\u30bb\u30c3\u30b7\u30e7\u30f3"
+    "name": "\u30bb\u30c3\u30b7\u30e7\u30f34",
+    "start_at": "17:30:00"
   },
+  "pk": 5,
   "model": "program.timespan"
 }
 ]
