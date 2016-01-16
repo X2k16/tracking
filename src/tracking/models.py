@@ -35,3 +35,10 @@ class AttendLog(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "入場履歴"
         ordering = ("date",)
+
+    date = models.DateTimeField("確認日時")
+    participant = models.ForeignKey(Participant)
+    venue = models.ForeignKey("program.Venue")
+    program = models.ForeignKey("program.Program")
+    created_at = models.DateTimeField("登録日時", auto_now_add=True)
+    updated_at = models.DateTimeField("最終更新日時", auto_now=True)
