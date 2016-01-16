@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from tracking import views
 from tracking.api.views import router as api_router
+from tracking.api.internal.views import router as internalapi_router
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -25,5 +26,6 @@ urlpatterns = [
     url(r'^unauthorized/$', views.unauthorized, name='unauthorized'),
     url(r'^demo/', include("tracking.demo.urls")),
     url(r'^api/', include(api_router.urls)),
+    url(r'^internalapi/', include(internalapi_router.urls)),
     url(r'^admin/', include(admin.site.urls)),
 ]

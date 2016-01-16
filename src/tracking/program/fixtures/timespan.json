@@ -1,47 +1,47 @@
 [
 {
-  "fields": {
-    "end_at": "12:40:00",
-    "name": "\u30bb\u30c3\u30b7\u30e7\u30f31",
-    "start_at": "11:20:00"
-  },
+  "model": "program.timespan",
   "pk": 1,
-  "model": "program.timespan"
+  "fields": {
+    "start_at": "11:20:00",
+    "name": "\u30bb\u30c3\u30b7\u30e7\u30f31",
+    "end_at": "12:40:00"
+  }
 },
 {
-  "fields": {
-    "end_at": "14:40:00",
-    "name": "\u30e9\u30f3\u30c1\u30bb\u30c3\u30b7\u30e7\u30f3",
-    "start_at": "13:30:00"
-  },
+  "model": "program.timespan",
   "pk": 2,
-  "model": "program.timespan"
+  "fields": {
+    "start_at": "13:00:00",
+    "name": "\u30e9\u30f3\u30c1\u30bb\u30c3\u30b7\u30e7\u30f3",
+    "end_at": "14:00:00"
+  }
 },
 {
-  "fields": {
-    "end_at": "15:30:00",
-    "name": "\u30bb\u30c3\u30b7\u30e7\u30f32",
-    "start_at": "14:10:00"
-  },
+  "model": "program.timespan",
   "pk": 3,
-  "model": "program.timespan"
+  "fields": {
+    "start_at": "14:10:00",
+    "name": "\u30bb\u30c3\u30b7\u30e7\u30f32",
+    "end_at": "15:30:00"
+  }
 },
 {
-  "fields": {
-    "end_at": "17:10:00",
-    "name": "\u30bb\u30c3\u30b7\u30e7\u30f33",
-    "start_at": "15:50:00"
-  },
+  "model": "program.timespan",
   "pk": 4,
-  "model": "program.timespan"
+  "fields": {
+    "start_at": "15:50:00",
+    "name": "\u30bb\u30c3\u30b7\u30e7\u30f33",
+    "end_at": "17:10:00"
+  }
 },
 {
-  "fields": {
-    "end_at": "18:30:00",
-    "name": "\u30bb\u30c3\u30b7\u30e7\u30f34",
-    "start_at": "17:30:00"
-  },
+  "model": "program.timespan",
   "pk": 5,
-  "model": "program.timespan"
+  "fields": {
+    "start_at": "17:30:00",
+    "name": "\u30bb\u30c3\u30b7\u30e7\u30f34",
+    "end_at": "18:30:00"
+  }
 }
 ]
