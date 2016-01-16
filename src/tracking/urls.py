@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^l/$', views.token_login, name='token_login'),
     url(r'^perticipant/$', views.participant_form, name='participant_form'),
     url(r'^unauthorized/$', views.unauthorized, name='unauthorized'),
+    url(r'^enquete/', include("tracking.enquete.urls")),
     url(r'^demo/', include("tracking.demo.urls")),
     url(r'^api/', include(api_router.urls)),
     url(r'^internalapi/', include(internalapi_router.urls)),

@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'tracking',
     'tracking.program',
+    'tracking.enquete',
     'tracking.demo',
     'rest_framework',
     'django.contrib.admin',

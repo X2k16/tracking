@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<H2>アンケートトップページ</h2>
+
+{% for timespan in timespans %}
+  <h3>{{ timespan.name }}</h3>
+  <a href="{% url "enquete_program" timespan.id %}">
+    <button class="btn btn-primary">
+      {% if timespan.enquete %}回答済み{% else %}回答する{% endif %}
+    </button>
+  </a>
+{% endfor %}
+
+
+{% endblock %}
