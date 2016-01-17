@@ -49,6 +49,9 @@ class Program(models.Model):
 
     @property
     def data(self):
+        if getattr(self, "_data", None):
+            return self._data
+
         venues = {
             1: "x",
             2: "a",
@@ -58,7 +61,13 @@ class Program(models.Model):
             6: "e"
         }
         program_id = "{0}{1}".format(venues[self.venue_id], self.timespan_id)
-        return self.get_programs()[program_id]
+        cache_key = "program_{0}".format(program_id)
+        data = cache.get(cache_key)
+        if not data:
+            data = self.get_programs()[program_id]
+            cache.set(cache_key, data, 30)
+        self._data = data
+        return data
 
     @classmethod
     def get_programs(cls):
