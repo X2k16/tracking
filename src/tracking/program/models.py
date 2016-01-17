@@ -1,4 +1,8 @@
 # coding=utf-8
+import requests
+
+from django.core.cache import cache
+from django.conf import settings
 from django.db import models
 
 
@@ -42,3 +46,25 @@ class Program(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def data(self):
+        venues = {
+            1: "x",
+            2: "a",
+            3: "b",
+            4: "c",
+            5: "d",
+            6: "e"
+        }
+        program_id = "{0}{1}".format(venues[self.venue_id], self.timespan_id)
+        return self.get_programs()[program_id]
+
+    @classmethod
+    def get_programs(cls):
+        programs = cache.get('programs')
+        if not programs:
+            response = requests.get(settings.PROGRAM_API)
+            programs = {p["id"]: p for p in response.json()["programs"]}
+            cache.set("programs", programs, 30)
+        return programs

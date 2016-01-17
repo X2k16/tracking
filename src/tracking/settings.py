@@ -110,3 +110,5 @@ STATIC_URL = '/static/'
 LOGIN_URL = "unauthorized"
 
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend', 'tracking.auth.backends.TokenBackend')
+
+PROGRAM_API = "http://2016-test.c.netsp.in/api-programs"
