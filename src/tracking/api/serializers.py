@@ -21,4 +21,24 @@ class ProgramSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Program
-        fields = ('id', 'name', 'timespan', 'venue')
+        fields = (
+            'id', 'name', 'timespan', 'venue',
+            'title', 'detail', 'owners', 'speakers'
+        )
+
+    title = serializers.SerializerMethodField()
+    detail = serializers.SerializerMethodField()
+    owners = serializers.SerializerMethodField()
+    speakers = serializers.SerializerMethodField()
+
+    def get_title(self, obj):
+        return obj.data["title"]
+
+    def get_detail(self, obj):
+        return obj.data["detail"]
+
+    def get_owners(self, obj):
+        return obj.data["owner"]
+
+    def get_speakers(self, obj):
+        return obj.data["speaker"]
