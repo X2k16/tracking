@@ -18,7 +18,7 @@ def token_login(request):
     login(request, user)
 
     if not user.is_answered():
-        return redirect("enquete")
+        return redirect("enquete_index")
     return redirect("index")
 
 

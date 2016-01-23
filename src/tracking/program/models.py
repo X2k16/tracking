@@ -47,6 +47,7 @@ class Program(models.Model):
     def __str__(self):
         return self.name
 
+
     @property
     def data(self):
         if getattr(self, "_data", None):
@@ -77,3 +78,22 @@ class Program(models.Model):
             programs = {p["id"]: p for p in response.json()["programs"]}
             cache.set("programs", programs, 30)
         return programs
+
+
+class ProgramAttendance(models.Model):
+
+    class Meta:
+        verbose_name = verbose_name_plural = "セッション"
+        ordering = ("timespan",)
+        unique_together = (("participant", "program"),)
+
+    participant = models.ForeignKey("tracking.Participant")
+    timespan = models.ForeignKey(Timespan)
+    program = models.ForeignKey(Program)
+    is_enabled = models.BooleanField()
+
+    created_at = models.DateTimeField("登録日時", auto_now_add=True)
+    updated_at = models.DateTimeField("最終更新日時", auto_now=True)
+
+    def __str__(self):
+        return "{0} {1}".format(self.participant, self.program)
