@@ -13,15 +13,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProgramEnquete',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
                 ('is_good', models.BooleanField(verbose_name='よかった(サンプル)')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='登録日時')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='最終更新日時')),
+                ('created_at', models.DateTimeField(verbose_name='登録日時', auto_now_add=True)),
+                ('updated_at', models.DateTimeField(verbose_name='最終更新日時', auto_now=True)),
             ],
             options={
-                'verbose_name_plural': 'セッションアンケート',
                 'verbose_name': 'セッションアンケート',
                 'ordering': ('-id',),
+                'verbose_name_plural': 'セッションアンケート',
             },
         ),
     ]

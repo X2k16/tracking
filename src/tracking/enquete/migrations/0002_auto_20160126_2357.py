@@ -7,9 +7,9 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tracking', '0001_initial'),
         ('enquete', '0001_initial'),
         ('program', '0001_initial'),
+        ('tracking', '0001_initial'),
     ]
 
     operations = [
