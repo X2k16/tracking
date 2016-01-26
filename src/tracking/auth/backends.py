@@ -13,9 +13,7 @@ class TokenBackend(object):
         try:
             user = Participant.objects.get(login_token=token)
         except Participant.DoesNotExist:
-            # FIXME: デモのため生成する
-            user = Participant(login_token=token, username=token)
-            user.save()
+            pass
 
         return user
 
