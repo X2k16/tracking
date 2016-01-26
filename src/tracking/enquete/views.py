@@ -4,10 +4,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from tracking.program.models import Timespan
 from tracking.enquete.models import ProgramEnquete
-from tracking.enquete.forms import ProgramEnqueteForm
+from tracking.enquete.forms import ProgramEnqueteForm, ParticipantForm
 
 
 @login_required
@@ -27,6 +29,24 @@ def index(request):
         "timespans":timespans
     }
     return render(request, "enquete/index.html", context)
+
+
+@login_required
+def participant_form(request):
+    participant = request.user
+
+    form = ParticipantForm(instance=participant)
+    if request.method == "POST":
+        form = ParticipantForm(request.POST, instance=participant)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(settings.PROGRAM_REDIRECT_URL)
+
+    context = {
+        "form": form
+    }
+    return render(request, "enquete_form.html", context)
+
 
 
 @login_required
