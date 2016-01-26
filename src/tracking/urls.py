@@ -20,9 +20,7 @@ from tracking.api.views import router as api_router
 from tracking.api.internal.views import router as internalapi_router
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
     url(r'^l/$', views.token_login, name='token_login'),
-    url(r'^perticipant/$', views.participant_form, name='participant_form'),
     url(r'^unauthorized/$', views.unauthorized, name='unauthorized'),
     url(r'^enquete/', include("tracking.enquete.urls")),
     url(r'^demo/', include("tracking.demo.urls")),
