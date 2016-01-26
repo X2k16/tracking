@@ -1,6 +1,9 @@
 # coding=utf-8
 from django.db import models
+from django.core.cache import cache
+from django.conf import settings
 from rest_framework import routers, mixins, viewsets
+from rest_framework.response import Response
 
 from tracking.program.models import Timespan, Venue, Program, ProgramAttendance
 from tracking.api.serializers import TimespanSerializer, VenueSerializer, ProgramSerializer, AudienceSerializer
@@ -31,6 +34,15 @@ class ProgramViewSet(mixins.ListModelMixin,
                                 viewsets.GenericViewSet):
     queryset = Program.objects.all()
     serializer_class = ProgramSerializer
+
+    def list(self, *args, **kwargs):
+        data = cache.get("ProgList", None)
+        if data:
+            response = Response(data)
+        else:
+            response = super().list(*args, **kwargs)
+            cache.set("ProgList", response.data, settings.PROGRAM_CACHE_TIME)
+        return response
 
 router.register("programs", ProgramViewSet)
 
