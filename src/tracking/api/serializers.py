@@ -42,3 +42,24 @@ class ProgramSerializer(serializers.ModelSerializer):
 
     def get_speakers(self, obj):
         return obj.data["speaker"]
+
+class AudienceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Program
+        fields = (
+            'id',
+            'program',
+            'count'
+        )
+
+    id = serializers.SerializerMethodField()
+    program = serializers.SerializerMethodField()
+    count = serializers.SerializerMethodField()
+
+    def get_id(self, obj):
+        return obj["program_id"]
+    def get_program(self, obj):
+        return obj["program_id"]
+    def get_count(self, obj):
+        return obj["count"]

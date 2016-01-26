@@ -1,8 +1,9 @@
 # coding=utf-8
+from django.db import models
 from rest_framework import routers, mixins, viewsets
 
-from tracking.program.models import Timespan, Venue, Program
-from tracking.api.serializers import TimespanSerializer, VenueSerializer, ProgramSerializer
+from tracking.program.models import Timespan, Venue, Program, ProgramAttendance
+from tracking.api.serializers import TimespanSerializer, VenueSerializer, ProgramSerializer, AudienceSerializer
 
 router = routers.DefaultRouter()
 
@@ -32,3 +33,12 @@ class ProgramViewSet(mixins.ListModelMixin,
     serializer_class = ProgramSerializer
 
 router.register("programs", ProgramViewSet)
+
+
+class AudienceViewSet(mixins.ListModelMixin,
+                                mixins.RetrieveModelMixin,
+                                viewsets.GenericViewSet):
+    queryset = ProgramAttendance.objects.filter(is_enabled=True).values("program_id").annotate(count=models.Count("id"))
+    serializer_class = AudienceSerializer
+
+router.register("audiences", AudienceViewSet, "audiences")

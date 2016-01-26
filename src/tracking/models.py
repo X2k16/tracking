@@ -30,6 +30,23 @@ class Participant(User):
         return False
 
 
+class Terminal(models.Model):
+
+    class Meta:
+        verbose_name = verbose_name_plural = "NFC端末"
+        ordering = ("name", "id")
+
+    mac = models.CharField("MACアドレス", max_length=17, unique=True)
+    name = models.CharField("名前", max_length=200, blank=True)
+    venue = models.ForeignKey("program.Venue", blank=True, null=True)
+
+    created_at = models.DateTimeField("登録日時", auto_now_add=True)
+    updated_at = models.DateTimeField("最終更新日時", auto_now=True)
+
+    def __str__(self):
+        return "[{0}] {1} @{2}".format(self.mac, self.name, self.venue)
+
+
 class AttendLog(models.Model):
 
     class Meta:
@@ -38,7 +55,9 @@ class AttendLog(models.Model):
 
     date = models.DateTimeField("確認日時")
     participant = models.ForeignKey(Participant)
-    venue = models.ForeignKey("program.Venue")
+    terminal = models.ForeignKey(Terminal, blank=True, null=True)
+    venue = models.ForeignKey("program.Venue", blank=True, null=True)
+    timespan = models.ForeignKey("program.Timespan", blank=True, null=True)
     program = models.ForeignKey("program.Program", blank=True, null=True)
     created_at = models.DateTimeField("登録日時", auto_now_add=True)
     updated_at = models.DateTimeField("最終更新日時", auto_now=True)
