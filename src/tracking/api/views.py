@@ -4,12 +4,21 @@ from django.core.cache import cache
 from django.conf import settings
 from rest_framework import routers, mixins, viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from tracking.program.models import Timespan, Venue, Program, ProgramAttendance
 from tracking.api.serializers import TimespanSerializer, VenueSerializer, ProgramSerializer, AudienceSerializer
 
 router = routers.DefaultRouter()
 
+class AuthViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+
+    def list(self, request):
+        return Response({"id": request.user.id})
+
+
+router.register("auth", AuthViewSet, "auth")
 
 class TimeSpanViewSet(mixins.ListModelMixin,
                                 mixins.RetrieveModelMixin,
