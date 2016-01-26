@@ -66,7 +66,8 @@ class TouchSerializer(serializers.ModelSerializer):
             program_attendance, created = ProgramAttendance.objects.get_or_create(
                 participant=validated_data["participant"],
                 timespan=validated_data["timespan"],
-                program=validated_data["program"]
+                program=validated_data["program"],
+                defaults={"is_enabled":True}
             )
             ProgramAttendance.objects.filter(id=program_attendance.id).update(is_enabled=True)
 
