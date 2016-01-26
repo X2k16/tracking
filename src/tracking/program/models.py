@@ -62,13 +62,8 @@ class Program(models.Model):
             6: "e"
         }
         program_id = "{0}{1}".format(venues[self.venue_id], self.timespan_id)
-        cache_key = "program_{0}".format(program_id)
-        data = cache.get(cache_key)
-        if not data:
-            data = self.get_programs()[program_id]
-            cache.set(cache_key, data, 30)
-        self._data = data
-        return data
+        self._data = self.get_programs()[program_id]
+        return self._data
 
     @classmethod
     def get_programs(cls):
@@ -76,7 +71,7 @@ class Program(models.Model):
         if not programs:
             response = requests.get(settings.PROGRAM_API)
             programs = {p["id"]: p for p in response.json()["programs"]}
-            cache.set("programs", programs, 30)
+            cache.set("programs", programs, settings.PROGRAM_CACHE_TIME)
         return programs
 
 
