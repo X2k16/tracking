@@ -16,7 +16,7 @@ class TouchSerializer(serializers.ModelSerializer):
 
     def validate_card_id(self, value):
         try:
-            self._participant = Participant.objects.get(card_id=value.lower())
+            self._participant = Participant.objects.get(card_id=value.upper())
         except Participant.DoesNotExist:
             self._participant = None
             raise serializers.ValidationError("NOT_FOUND")
@@ -25,7 +25,7 @@ class TouchSerializer(serializers.ModelSerializer):
 
     def validate_mac(self, value):
         try:
-            self._terminal = Terminal.objects.get(mac=value)
+            self._terminal = Terminal.objects.get(mac=value.upper())
         except:
             self._terminal = None
             raise serializers.ValidationError("NOT_FOUND")
