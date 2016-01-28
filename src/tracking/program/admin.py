@@ -20,3 +20,17 @@ class ProgramAdmin(admin.ModelAdmin):
     list_filter = ("timespan", "venue")
 
 admin.site.register(Program, ProgramAdmin)
+
+
+class VenueAttendanceAdmin(admin.ModelAdmin):
+    list_display = ("id", "participant", "venue", "is_enabled")
+    list_filter = ("venue", "is_enabled")
+
+admin.site.register(VenueAttendance, VenueAttendanceAdmin)
+
+
+class ProgramAttendanceAdmin(admin.ModelAdmin):
+    list_display = ("id", "participant", "program", "is_enabled")
+    list_filter = ("program__venue", "timespan", "is_enabled")
+
+admin.site.register(ProgramAttendance, ProgramAttendanceAdmin)
