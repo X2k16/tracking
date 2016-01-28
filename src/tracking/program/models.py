@@ -75,10 +75,27 @@ class Program(models.Model):
         return programs
 
 
+class VenueAttendance(models.Model):
+    class Meta:
+        verbose_name = verbose_name_plural = "会場参加"
+        ordering = ("created_at",)
+        unique_together = (("participant", "venue"),)
+
+    participant = models.ForeignKey("tracking.Participant")
+    venue = models.ForeignKey("Venue")
+    is_enabled = models.BooleanField()
+
+    created_at = models.DateTimeField("登録日時", auto_now_add=True)
+    updated_at = models.DateTimeField("最終更新日時", auto_now=True)
+
+    def __str__(self):
+        return "{0} {1}".format(self.participant, self.venue)
+
+
 class ProgramAttendance(models.Model):
 
     class Meta:
-        verbose_name = verbose_name_plural = "セッション"
+        verbose_name = verbose_name_plural = "セッション参加"
         ordering = ("timespan",)
         unique_together = (("participant", "program"),)
 

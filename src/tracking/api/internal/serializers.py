@@ -1,7 +1,8 @@
 # coding=utf-8
+import datetime
 from rest_framework import serializers
 from tracking.models import Participant, AttendLog, Terminal
-from tracking.program.models import Program, ProgramAttendance, Timespan
+from tracking.program.models import Program, ProgramAttendance, Timespan, VenueAttendance
 
 
 class TouchSerializer(serializers.ModelSerializer):
@@ -39,11 +40,25 @@ class TouchSerializer(serializers.ModelSerializer):
         validated_data["timespan"] = None
         validated_data["program"] = None
 
+
+        # 参加会場の保存
+        VenueAttendance.objects.filter(participant=validated_data["participant"], is_enabled=True).update(is_enabled=False)
+        if self._terminal.venue:
+            venue_attendance, created = VenueAttendance.objects.get_or_create(
+                participant=validated_data["participant"],
+                venue=self._terminal.venue,
+                defaults={"is_enabled":True}
+            )
+            VenueAttendance.objects.filter(id=venue_attendance.id).update(is_enabled=True)
+
+
         # Timespanの取得
         try:
-            t = validated_data["date"].time()
-            validated_data["timespan"] = Timespan.objects.get(start_at__lte=t, end_at__gte=t)
-        except Timespan.DoesNotExist:
+            t = (validated_data["date"]+datetime.timedelta(minutes=5)).time()
+            queryset = Timespan.objects.filter(end_at__gte=t)
+            queryset = queryset.order_by("start_at")
+            validated_data["timespan"] = queryset[0]
+        except IndexError:
             pass
         else:
             # Programの取得
