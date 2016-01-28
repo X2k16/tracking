@@ -1,6 +1,6 @@
 # coding=utf-8
 from rest_framework import serializers
-from tracking.program.models import Timespan, Venue, Program
+from tracking.program.models import Timespan, Venue, Program, VenueAttendance
 
 
 class TimespanSerializer(serializers.ModelSerializer):
@@ -14,7 +14,12 @@ class VenueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Venue
-        fields = ('id', 'ordering', 'name')
+        fields = ('id', 'ordering', 'name', 'count')
+
+    count = serializers.SerializerMethodField()
+
+    def get_count(self, obj):
+        return VenueAttendance.objects.filter(is_enabled=True, venue=obj).count()
 
 
 class ProgramSerializer(serializers.ModelSerializer):
