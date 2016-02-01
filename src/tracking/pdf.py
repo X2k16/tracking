@@ -11,6 +11,7 @@ from reportlab.lib.utils import ImageReader
 from PIL import Image
 import qrcode
 
+
 def _register_fonts():
     fonts = ["GenShinGothic-Regular", "GenShinGothic-Light"]
 
@@ -45,33 +46,32 @@ def generate_sheet_pdf(part, f):
 
     for i, perticipant in enumerate(part):
         page.saveState()
-        part_x = i%3
-        part_y = int(i/3)
-        page.translate((7.2+((63.5+2.55)*part_x))*mm, (15.15+38.1*(6-part_y))*mm)
+        part_x = i % 3
+        part_y = int(i / 3)
+        page.translate((7.2 + ((63.5 + 2.55) * part_x)) * mm, (15.15 + 38.1 * (6 - part_y)) * mm)
 
         # QRコード
         img = qrcode.make("https://ticket.cross-party.com/tracking/l/?t={0}".format(perticipant.login_token))._img
-        page.drawImage(ImageReader(img), 0,(38.1-30)/2*mm, 30 * mm, 30 * mm)
+        page.drawImage(ImageReader(img), 0, (38.1 - 30) / 2 * mm, 30 * mm, 30 * mm)
 
         # No.0000
-        drawRightString(page, "GenShinGothic-Light", 3*mm, (63.5-2) * mm, 2  * mm, "No.{0:04d}".format(perticipant.id))
+        drawRightString(page, "GenShinGothic-Light", 3 * mm, (63.5 - 2) * mm, 2 * mm, "No.{0:04d}".format(perticipant.id))
 
         # アンケート
-        drawCenteredString(page, "GenShinGothic-Regular", 3.5*mm, 45 * mm, 27.2*mm, "アンケートに")
-        drawCenteredString(page, "GenShinGothic-Regular", 3.5*mm, 45 * mm, 23*mm, "← 答えて")
-        drawCenteredString(page, "GenShinGothic-Regular", 3.5*mm, 45 * mm, 18.8*mm, "景品を当てよう！")
+        drawCenteredString(page, "GenShinGothic-Regular", 3.5 * mm, 45 * mm, 27.2 * mm, "アンケートに")
+        drawCenteredString(page, "GenShinGothic-Regular", 3.5 * mm, 45 * mm, 23 * mm, "← 答えて")
+        drawCenteredString(page, "GenShinGothic-Regular", 3.5 * mm, 45 * mm, 18.8 * mm, "景品を当てよう！")
 
-        drawCenteredString(page, "GenShinGothic-Regular", 4*mm, 45 * mm, 12*mm, "リーダーに")
-        drawCenteredString(page, "GenShinGothic-Regular", 4*mm, 45 * mm, 8*mm, "ここをタッチ♪")
+        drawCenteredString(page, "GenShinGothic-Regular", 4 * mm, 45 * mm, 12 * mm, "リーダーに")
+        drawCenteredString(page, "GenShinGothic-Regular", 4 * mm, 45 * mm, 8 * mm, "ここをタッチ♪")
 
         # グリッド
-        page.line(0,0,63.5*mm,0)
-        page.line(63.5*mm,0, 63.5*mm, 38.1*mm)
-        page.line(63.5*mm, 38.1*mm,0, 38.1*mm)
-        page.line(0, 38.1*mm,0,0)
+        page.line(0, 0, 63.5 * mm, 0)
+        page.line(63.5 * mm, 0, 63.5 * mm, 38.1 * mm)
+        page.line(63.5 * mm, 38.1 * mm, 0, 38.1 * mm)
+        page.line(0, 38.1 * mm, 0, 0)
 
         page.restoreState()
-
 
     page.showPage()
     page.save()
@@ -85,9 +85,9 @@ def generate_sheet_pdf(part, f):
 
 def generate_sherets_pdf(perticipants, f):
     buffers = []
-    while len(perticipants):
-        part = perticipants[:10]
-        perticipants = perticipants[10:]
+    while len(perticipants.order_by("id")):
+        part = perticipants[:21]
+        perticipants = perticipants[21:]
         buffer = NamedTemporaryFile(suffix=".pdf", delete=True)
         generate_sheet_pdf(part, buffer)
         buffers.append(buffer)
