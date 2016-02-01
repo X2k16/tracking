@@ -2,6 +2,7 @@
 import os
 from tempfile import NamedTemporaryFile
 import subprocess
+import urllib.parse
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.lib.pagesizes import A4
@@ -51,7 +52,7 @@ def generate_sheet_pdf(part, f):
         page.translate((7.2 + ((63.5 + 2.55) * part_x)) * mm, (15.15 + 38.1 * (6 - part_y)) * mm)
 
         # QRコード
-        img = qrcode.make("https://ticket.cross-party.com/tracking/l/?t={0}".format(perticipant.login_token))._img
+        img = qrcode.make("https://ticket.cross-party.com/tracking/l/?t={0}".format(urllib.parse.quote_plus(perticipant.login_token)))._img
         page.drawImage(ImageReader(img), 0, (38.1 - 30) / 2 * mm, 30 * mm, 30 * mm)
 
         # No.0000
@@ -66,10 +67,11 @@ def generate_sheet_pdf(part, f):
         drawCenteredString(page, "GenShinGothic-Regular", 4 * mm, 45 * mm, 8 * mm, "ここをタッチ♪")
 
         # グリッド
-        page.line(0, 0, 63.5 * mm, 0)
-        page.line(63.5 * mm, 0, 63.5 * mm, 38.1 * mm)
-        page.line(63.5 * mm, 38.1 * mm, 0, 38.1 * mm)
-        page.line(0, 38.1 * mm, 0, 0)
+        if False:
+            page.line(0, 0, 63.5 * mm, 0)
+            page.line(63.5 * mm, 0, 63.5 * mm, 38.1 * mm)
+            page.line(63.5 * mm, 38.1 * mm, 0, 38.1 * mm)
+            page.line(0, 38.1 * mm, 0, 0)
 
         page.restoreState()
 
@@ -85,7 +87,8 @@ def generate_sheet_pdf(part, f):
 
 def generate_sherets_pdf(perticipants, f):
     buffers = []
-    while len(perticipants.order_by("id")):
+    perticipants = list(perticipants.order_by("id"))
+    while len(perticipants):
         part = perticipants[:21]
         perticipants = perticipants[21:]
         buffer = NamedTemporaryFile(suffix=".pdf", delete=True)
