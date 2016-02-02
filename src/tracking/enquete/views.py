@@ -9,7 +9,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from tracking.program.models import Timespan, ProgramAttendance
 from tracking.enquete.models import ProgramEnquete
-from tracking.enquete.forms import ProgramEnqueteForm, ParticipantForm
+from tracking.enquete.forms import ProgramEnqueteForm, ParticipantForm, CrossEnqueteForm
 
 
 @login_required
@@ -55,6 +55,23 @@ def participant_form(request):
         "form": form
     }
     return render(request, "enquete_form.html", context)
+
+
+@login_required
+def cross_enquete(request):
+    participant = request.user
+
+    form = CrossEnqueteForm(instance=participant)
+    if request.method == "POST":
+        form = CrossEnqueteForm(request.POST, instance=participant)
+        if form.is_valid():
+            form.save()
+            return redirect("enquete_index")
+
+    context = {
+        "form": form
+    }
+    return render(request, "enquete/cross_form.html", context)
 
 
 @login_required
