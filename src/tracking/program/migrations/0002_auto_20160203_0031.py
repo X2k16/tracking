@@ -13,6 +13,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
+            model_name='venueattendance',
+            name='participant',
+            field=models.ForeignKey(to='tracking.Participant'),
+        ),
+        migrations.AddField(
+            model_name='venueattendance',
+            name='venue',
+            field=models.ForeignKey(to='program.Venue'),
+        ),
+        migrations.AddField(
             model_name='programattendance',
             name='participant',
             field=models.ForeignKey(to='tracking.Participant'),
@@ -36,6 +46,10 @@ class Migration(migrations.Migration):
             model_name='program',
             name='venue',
             field=models.ForeignKey(to='program.Venue'),
+        ),
+        migrations.AlterUniqueTogether(
+            name='venueattendance',
+            unique_together=set([('participant', 'venue')]),
         ),
         migrations.AlterUniqueTogether(
             name='programattendance',
