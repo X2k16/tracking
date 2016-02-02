@@ -18,7 +18,7 @@ class ProgramEnquete(models.Model):
 
     participant = models.ForeignKey("tracking.Participant")
     timespan = models.ForeignKey("program.Timespan")
-    program = models.ForeignKey("program.Program")
+    program = models.ForeignKey("program.Program", verbose_name="参加プログラム")
 
     # アンケート項目
     GOOD_CHOICES = (

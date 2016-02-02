@@ -51,5 +51,6 @@ class ProgramEnqueteForm(BootstrapMixins, forms.ModelForm):
                 field.required = True
 
         self.fields["program"].queryset = Program.objects.filter(
-            timespan=self.instance.timespan
+            timespan=self.instance.timespan,
+            programattendance__participant=self.instance.participant
         )
