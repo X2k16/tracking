@@ -7,9 +7,9 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('enquete', '0001_initial'),
         ('program', '0001_initial'),
         ('tracking', '0001_initial'),
+        ('enquete', '0001_initial'),
     ]
 
     operations = [
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='programenquete',
             name='program',
-            field=models.ForeignKey(to='program.Program'),
+            field=models.ForeignKey(verbose_name='参加プログラム', to='program.Program'),
         ),
         migrations.AddField(
             model_name='programenquete',
