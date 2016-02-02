@@ -84,6 +84,12 @@ class Program(models.Model):
         if not programs:
             response = requests.get(settings.PROGRAM_API)
             programs = {p["id"]: p for p in response.json()["programs"]}
+            programs["x5"] = {
+                "title": "アンカンファレンス",
+                "detail": "",
+                "owner": [],
+                "speaker": []
+            }
             cache.set("programs", programs, settings.PROGRAM_CACHE_TIME)
         return programs
 
