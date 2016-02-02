@@ -20,8 +20,15 @@ class ProgramEnquete(models.Model):
     timespan = models.ForeignKey("program.Timespan")
     program = models.ForeignKey("program.Program")
 
-    # TODO:アンケート項目
-    is_good = models.BooleanField("よかった(サンプル)")
+    # アンケート項目
+    GOOD_CHOICES = (
+        ("4", "とても良かった"),
+        ("3", "良かった"),
+        ("2", "悪かった"),
+        ("1", "とても悪かった"),
+    )
+    is_good = models.IntegerField("このプログラムは良かったですか？", choices=GOOD_CHOICES)
+    comment = models.TextField("ご意見・ご感想", blank=True)
 
     created_at = models.DateTimeField("登録日時", auto_now_add=True)
     updated_at = models.DateTimeField("最終更新日時", auto_now=True)
