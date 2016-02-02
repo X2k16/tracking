@@ -7,26 +7,35 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from tracking.program.models import Timespan
+from tracking.program.models import Timespan, ProgramAttendance
 from tracking.enquete.models import ProgramEnquete
-from tracking.enquete.forms import ProgramEnqueteForm, ParticipantForm
+from tracking.enquete.forms import ProgramEnqueteForm, ParticipantForm, CrossEnqueteForm
 
 
 @login_required
 def index(request):
 
-    timespans = Timespan.objects.all()
     program_enquetes = {
         e.timespan_id: e
         for e in ProgramEnquete.objects.filter(participant=request.user)
     }
 
-    for timespan in timespans:
+    timespans = []
+    for timespan in Timespan.objects.all():
+        data = {
+            "id": timespan.id,
+            "name": timespan.name,
+        }
+
         # 時間帯ごとのアンケート回答を取得
-        timespan.enquete = program_enquetes.get(timespan.id, None)
+        data["enquete"] = program_enquetes.get(timespan.id, None)
+        # 時間帯ごとの参加プログラム
+        data["programs"] = list(ProgramAttendance.objects.filter(participant=request.user, timespan=timespan))
+
+        timespans.append(data)
 
     context = {
-        "timespans":timespans
+        "timespans": timespans
     }
     return render(request, "enquete/index.html", context)
 
@@ -48,6 +57,22 @@ def participant_form(request):
     return render(request, "enquete_form.html", context)
 
 
+@login_required
+def cross_enquete(request):
+    participant = request.user
+
+    form = CrossEnqueteForm(instance=participant)
+    if request.method == "POST":
+        form = CrossEnqueteForm(request.POST, instance=participant)
+        if form.is_valid():
+            form.save()
+            return redirect("enquete_index")
+
+    context = {
+        "form": form
+    }
+    return render(request, "enquete/cross_form.html", context)
+
 
 @login_required
 def program_enquete(request, timespan_id):
@@ -65,7 +90,7 @@ def program_enquete(request, timespan_id):
             return redirect("enquete_index")
 
     context = {
-        "timespan":timespan,
-        "form":form
+        "timespan": timespan,
+        "form": form
     }
     return render(request, "enquete/program_enquete.html", context)
