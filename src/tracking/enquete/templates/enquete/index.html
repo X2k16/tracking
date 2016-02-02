@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<H2>アンケートトップページ</h2>
+<h2>アンケート</h2>
 
 {% for timespan in timespans %}
   <h3>{{ timespan.name }}</h3>
-  <a href="{% url "enquete_program" timespan.id %}">
-    <button class="btn btn-primary">
-      {% if timespan.enquete %}回答済み{% else %}回答する{% endif %}
-    </button>
-  </a>
+  {% if timespan.programs|length == 0 %}
+    <button class="btn btn-block" disabled>不参加</button>
+  {% else %}
+    <a href="{% url "enquete_program" timespan.id %}">
+      {% if timespan.enquete %}
+      <button class="btn btn-default btn-block">
+        <i class="fa fa-check"></i> 回答済み
+      </button>
+      {% else %}
+      <button class="btn btn-primary btn-block">
+        <i class="fa fa-pencil"></i> 回答する
+      </button>
+      {% endif %}
+    </a>
+  {% endif %}
 {% endfor %}
 
 

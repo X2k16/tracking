@@ -22,10 +22,10 @@ class ProgramEnquete(models.Model):
 
     # アンケート項目
     GOOD_CHOICES = (
-        ("4", "とても良かった"),
-        ("3", "良かった"),
-        ("2", "悪かった"),
-        ("1", "とても悪かった"),
+        (4, "とても良かった"),
+        (3, "良かった"),
+        (2, "悪かった"),
+        (1, "とても悪かった"),
     )
     is_good = models.IntegerField("このプログラムは良かったですか？", choices=GOOD_CHOICES)
     comment = models.TextField("ご意見・ご感想", blank=True)
