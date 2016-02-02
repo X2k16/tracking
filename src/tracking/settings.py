@@ -115,3 +115,5 @@ PROGRAM_API = "http://2016-test.c.netsp.in/api-programs"
 PROGRAM_CACHE_TIME = 600
 
 PROGRAM_REDIRECT_URL = "https://ticket.cross-party.com/cross2016/"
+
+INTERNAL_API_KEY = "CHANGE_ME"
