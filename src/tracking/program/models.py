@@ -1,9 +1,21 @@
 # coding=utf-8
 import requests
+import datetime
 
 from django.core.cache import cache
 from django.conf import settings
 from django.db import models
+
+
+class TimespanManager(models.Manager):
+
+    def now(self, t=None):
+        t = t or datetime.datetime.now().time()
+        queryset = self.get_queryset()
+        try:
+            return queryset.filter(start_at__lte=t, end_at__gte=t).order_by("start_at")[0]
+        except IndexError:
+            raise Timespan.DoesNotExist
 
 
 class Timespan(models.Model):
@@ -15,6 +27,8 @@ class Timespan(models.Model):
     start_at = models.TimeField("開始時間")
     end_at = models.TimeField("終了時間")
     name = models.CharField("時間帯名", max_length=100)
+
+    objects = TimespanManager()
 
     def __str__(self):
         return "[{0}-{1}] {2}".format(self.start_at, self.end_at, self.name)
@@ -47,7 +61,6 @@ class Program(models.Model):
     def __str__(self):
         return self.name
 
-
     @property
     def data(self):
         if getattr(self, "_data", None):
@@ -76,6 +89,7 @@ class Program(models.Model):
 
 
 class VenueAttendance(models.Model):
+
     class Meta:
         verbose_name = verbose_name_plural = "会場参加"
         ordering = ("created_at",)
