@@ -27,7 +27,7 @@ class CrossEnqueteForm(BootstrapMixins, forms.ModelForm):
     class Meta:
         model = Participant
         fields = (
-            "access", "equipment", "will_attend", "comment"
+            "good_program", "access", "equipment", "will_attend", "comment"
         )
 
     def __init__(self, *args, **kwargs):
@@ -35,6 +35,10 @@ class CrossEnqueteForm(BootstrapMixins, forms.ModelForm):
         for name, field in self.fields.items():
             if not name == "comment":
                 field.required = True
+
+        self.fields["good_program"].queryset = Program.objects.filter(
+            programattendance__participant=self.instance.participant
+        ).order_by("timespan", "venue")
 
 
 class ProgramEnqueteForm(BootstrapMixins, forms.ModelForm):
@@ -53,4 +57,4 @@ class ProgramEnqueteForm(BootstrapMixins, forms.ModelForm):
         self.fields["program"].queryset = Program.objects.filter(
             timespan=self.instance.timespan,
             programattendance__participant=self.instance.participant
-        )
+        ).order_by("venue")

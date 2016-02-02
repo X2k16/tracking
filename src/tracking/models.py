@@ -59,6 +59,7 @@ class Participant(User):
     how_to_know = models.CharField("CROSSを何で知りましたか？", max_length=50, choices=HOW_TO_KNOW_CHOICES, blank=True)
 
     # CROSSに関するアンケート
+    good_program = models.ForeignKey("program.Program", verbose_name="最も良かったプログラム", null=True, blank=True)
     GOOD_CHOICES = (
         (4, "とても良かった"),
         (3, "良かった"),
