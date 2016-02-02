@@ -3,27 +3,53 @@ from django import forms
 from tracking.program.models import Program
 from tracking.enquete.models import ProgramEnquete
 from tracking.models import Participant
+from tracking.forms import BootstrapMixins
 
 
-class ParticipantForm(forms.ModelForm):
+class ParticipantForm(BootstrapMixins, forms.ModelForm):
 
     class Meta:
         model = Participant
-        fields = ("last_name", "first_name", "email", "job_type")
+        fields = (
+            "sex", "age",
+            "job_type", "times", "how_to_know"
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.required = True
+        for name, field in self.fields.items():
+            if not name == "comment":
+                field.required = True
 
 
-class ProgramEnqueteForm(forms.ModelForm):
+class CrossEnqueteForm(BootstrapMixins, forms.ModelForm):
+
+    class Meta:
+        model = Participant
+        fields = (
+            "access", "equipment", "will_attend", "comment"
+        )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            if not name == "comment":
+                field.required = True
+
+
+class ProgramEnqueteForm(BootstrapMixins, forms.ModelForm):
+
     class Meta:
         model = ProgramEnquete
         exclude = ("participant", "timespan")
 
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            if not name == "comment":
+                field.required = True
+
         self.fields["program"].queryset = Program.objects.filter(
-            timespan = self.instance.timespan
+            timespan=self.instance.timespan
         )

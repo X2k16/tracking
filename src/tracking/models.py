@@ -40,13 +40,13 @@ class Participant(User):
     )
     age = models.CharField("年齢", max_length=10, choices=AGE_CHOICES, blank=True)
     TIMES_CHOICES = (
-        ("1", "初めて"),
-        ("2", "2回目"),
-        ("3", "3回目"),
-        ("4", "4回目"),
-        ("5", "5回目"),
+        (1, "初めて"),
+        (2, "2回目"),
+        (3, "3回目"),
+        (4, "4回目"),
+        (5, "5回目"),
     )
-    times = models.IntegerField("参加回数", blank=True, null=True)
+    times = models.IntegerField("参加回数", choices=TIMES_CHOICES, blank=True, null=True)
     HOW_TO_KNOW_CHOICES = (
         ("Twitter", "Twitter"),
         ("Facebook", "Facebook"),
@@ -60,10 +60,10 @@ class Participant(User):
 
     # CROSSに関するアンケート
     GOOD_CHOICES = (
-        ("4", "とても良かった"),
-        ("3", "良かった"),
-        ("2", "悪かった"),
-        ("1", "とても悪かった"),
+        (4, "とても良かった"),
+        (3, "良かった"),
+        (2, "悪かった"),
+        (1, "とても悪かった"),
     )
     access = models.IntegerField("会場アクセスはいかがでしたか？", choices=GOOD_CHOICES, blank=True, null=True)
     equipment = models.IntegerField("会場の設備はいかがでしたでしょうか？", choices=GOOD_CHOICES, blank=True, null=True)
