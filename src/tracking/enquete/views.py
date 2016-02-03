@@ -35,7 +35,8 @@ def index(request):
         timespans.append(data)
 
     context = {
-        "timespans": timespans
+        "timespans": timespans,
+        "lottery_count": request.user.lottery_count
     }
     return render(request, "enquete/index.html", context)
 

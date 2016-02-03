@@ -10,6 +10,8 @@ class Participant(User):
     card_id = models.CharField("カードID", max_length=255)
     login_token = models.CharField("ログイントークン", max_length=100, unique=True)
 
+    bonus_count = models.IntegerField("抽選ボーナス", default=0, blank=True)
+
     #　属性情報
     JOB_TYPE_CHOICES = (
         ("Web", "Webエンジニア"),
@@ -92,6 +94,11 @@ class Participant(User):
         if self.access:
             return True
         return False
+
+    @property
+    def lottery_count(self):
+        from tracking.enquete.models import ProgramEnquete
+        return self.bonus_count + ProgramEnquete.objects.filter(participant=self).count()
 
 
 class Terminal(models.Model):
