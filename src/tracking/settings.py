@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'tracking',
     'tracking.program',
     'tracking.enquete',
+    'tracking.lottery',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
