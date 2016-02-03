@@ -3,6 +3,10 @@
 {% block content %}
 <h2>アンケート</h2>
 
+<p style="text-align: center; font-size: 1.5em;">
+  抽選 <b>{{ lottery_count }}口</b> エントリー済み
+</p>
+
 {% for timespan in timespans %}
   <h3>{{ timespan.name }}</h3>
   {% if timespan.programs|length == 0 %}
@@ -11,7 +15,7 @@
     <a href="{% url "enquete_program" timespan.id %}">
       {% if timespan.enquete %}
       <button class="btn btn-default btn-block">
-        <i class="fa fa-check"></i> 回答済み
+        <i class="fa fa-check"></i> エントリー済み
       </button>
       {% else %}
       <button class="btn btn-primary btn-block">
@@ -35,5 +39,8 @@
   {% endif %}
 </a>
 
+<p style="text-align: center; padding-top: 20px; font-size: 5px;">
+  ※抽選時に会場にいない場合は対象外となります
+</p>
 
 {% endblock %}

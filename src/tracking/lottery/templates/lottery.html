@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>抽選</h2>
+
+<table class="table table-bordered">
+  <tr>
+    <th>順位</th><th>ID</th><th>乱数</th>
+  </tr>
+  {% for t in tickets %}
+  <tr>
+    <th>{{ forloop.counter }}</th>
+    <td>{{ t.participant.id }}</td>
+    <td>{{ t.ordering }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<form method="post" class="form">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="refresh"/>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">更新</button>
+</form>
+
+{% endblock %}

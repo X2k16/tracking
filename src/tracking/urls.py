@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^enquete/', include("tracking.enquete.urls")),
     url(r'^api/', include(api_router.urls)),
     url(r'^internalapi/', include(internalapi_router.urls)),
+    url(r'^lottery/', "tracking.lottery.views.get_lottery", name='get_lottery'),
     url(r'^admin/', include(admin.site.urls)),
 ]
