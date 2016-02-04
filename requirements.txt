@@ -5,3 +5,4 @@ django-filter
 requests
 reportlab
 qrcode
+pillow
