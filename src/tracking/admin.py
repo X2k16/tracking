@@ -25,7 +25,7 @@ admin.site.register(Participant, ParticipantAdmin)
 
 
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
+    list_display = ("id", "name", "hartbeat_at")
 
 admin.site.register(Client, ClientAdmin)
 
