@@ -56,6 +56,21 @@
 
       {% block content %}{% endblock %}
 
+      <div class="sponsors">
+        <div>
+          <p>製造・技術協力</p>
+          <a href="https://akiba.dmm-make.com/" target="_blank">
+            <img src={% static "images/dmm_make.jpg" %}/>
+          </a>
+        </div>
+        <div>
+          <p>回路設計・ソフトウエア・サーバ提供</p>
+          <a href="http://www.sakura.ad.jp/" target="_blank">
+            <img src={% static "images/sakura.png" %}/>
+          </a>
+        </div>
+      </div>
+
       <footer class="footer">
         <p>&copy; エンジニアサポート CROSS 2016 実行委員会</p>
       </footer>
@@ -67,5 +82,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     {% endcomment %}
+
   </body>
 </html>

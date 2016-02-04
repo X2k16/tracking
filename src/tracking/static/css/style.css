@@ -56,6 +56,18 @@ body {
 }
 
 
+.sponsors {
+  text-align: center;
+}
+
+.sponsors img {
+  width: 200px;
+}
+
+.sponsors div {
+  padding-top: 20px;
+  paddig-bottom: 20px;
+}
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .marketing,
 .footer {
