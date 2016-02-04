@@ -21,4 +21,4 @@ def token_login(request):
 
 
 def unauthorized(request):
-    return HttpResponse("Unauthorized", status=401)
+    return render(request, "unauthorized.html")
