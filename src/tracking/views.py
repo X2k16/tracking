@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-
+from tracking.heatmap import generate_heatmap
 
 def token_login(request):
     token = request.GET.get("t")
@@ -24,5 +24,6 @@ def unauthorized(request):
     return render(request, "unauthorized.html")
 
 
-def hall_png(request):
-    pass
+def heatmap_png(request):
+    response = HttpResponse(content_type="image/png")
+    return generate_heatmap(response)
