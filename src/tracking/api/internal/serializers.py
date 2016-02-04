@@ -9,7 +9,7 @@ class TouchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AttendLog
-        fields = ('id', 'date', 'card_id', 'participant', 'mac', 'program', 'created_at', 'updated_at')
+        fields = ('id', 'date', 'card_id', 'client', 'participant', 'mac', 'program', 'created_at', 'updated_at')
         read_only_fields = ('id', 'participant', 'program', 'created_at', 'updated_at')
 
     card_id = serializers.CharField(write_only=True)
@@ -89,4 +89,9 @@ class TouchSerializer(serializers.ModelSerializer):
 
         instance = AttendLog(**validated_data)
         instance.save()
+
+        if instance.client:
+            instance.client.hartbeat_at = datetime.datetime.now()
+            instance.client.save()
+
         return instance

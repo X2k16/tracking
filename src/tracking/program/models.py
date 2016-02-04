@@ -98,7 +98,7 @@ class VenueAttendance(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = "会場参加"
-        ordering = ("created_at",)
+        ordering = ("-created_at",)
         unique_together = (("participant", "venue"),)
 
     participant = models.ForeignKey("tracking.Participant")
@@ -116,7 +116,7 @@ class ProgramAttendance(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = "セッション参加"
-        ordering = ("timespan",)
+        ordering = ("-created_at",)
         unique_together = (("participant", "program"),)
 
     participant = models.ForeignKey("tracking.Participant")
