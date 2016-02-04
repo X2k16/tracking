@@ -1,8 +1,21 @@
 # coding=utf-8
 import datetime
+from django.utils import timezone
 from rest_framework import serializers
-from tracking.models import Participant, AttendLog, Terminal
+from tracking.models import Participant, AttendLog, Client, Terminal
 from tracking.program.models import Program, ProgramAttendance, Timespan, VenueAttendance
+
+class ClientSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Client
+        fields = ('id', 'name', 'hartbeat_at')
+        read_only_fields = fields
+
+    def update(self, instance, validated_data):
+        instance.hartbeat_at = timezone.now()
+        instance.save()
+        return instance
 
 
 class TouchSerializer(serializers.ModelSerializer):
@@ -91,7 +104,7 @@ class TouchSerializer(serializers.ModelSerializer):
         instance.save()
 
         if instance.client:
-            instance.client.hartbeat_at = datetime.datetime.now()
+            instance.client.hartbeat_at = timezone.now()
             instance.client.save()
 
         return instance
