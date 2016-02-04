@@ -22,3 +22,7 @@ def token_login(request):
 
 def unauthorized(request):
     return render(request, "unauthorized.html")
+
+
+def hall_png(request):
+    pass
