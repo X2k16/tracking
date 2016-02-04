@@ -14,10 +14,10 @@ class Participant(User):
 
     #　属性情報
     JOB_TYPE_CHOICES = (
-        ("Web", "Webエンジニア"),
         ("SI", "SIエンジニア"),
-        ("基幹", "基幹エンジニア"),
-        ("UI", "UIエンジニア"),
+        ("インフラ", "インフラエンジニア"),
+        ("フロントエンド", "フロントエンドエンジニア"),
+        ("Web", "Webエンジニア"),
         ("デザイナ", "デザイナー系"),
         ("運用", "IT運用/オペレータ"),
         ("営業", "営業"),
@@ -66,8 +66,10 @@ class Participant(User):
         (4, "とても良かった"),
         (3, "良かった"),
         (2, "悪かった"),
-        (1, "とても悪かった"),
+        (1, "とても悪かった")
     )
+    dpz = models.IntegerField("デイリーポータルZのお楽しみコーナーはいかがでしたか？", choices=GOOD_CHOICES, blank=True, null=True)
+    kikaku = models.IntegerField("その他の企画等はいかがでしたか？", choices=GOOD_CHOICES, blank=True, null=True)
     access = models.IntegerField("会場アクセスはいかがでしたか？", choices=GOOD_CHOICES, blank=True, null=True)
     equipment = models.IntegerField("会場の設備はいかがでしたでしょうか？", choices=GOOD_CHOICES, blank=True, null=True)
     WILL_ATTEND_CHOICES = (

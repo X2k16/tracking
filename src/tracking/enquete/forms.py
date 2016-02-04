@@ -27,7 +27,7 @@ class CrossEnqueteForm(BootstrapMixins, forms.ModelForm):
     class Meta:
         model = Participant
         fields = (
-            "good_program", "access", "equipment", "will_attend", "comment"
+            "good_program", "dpz", "kikaku", "access", "equipment", "will_attend", "comment"
         )
 
     def __init__(self, *args, **kwargs):
