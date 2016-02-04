@@ -101,6 +101,21 @@ class Participant(User):
         return self.bonus_count + ProgramEnquete.objects.filter(participant=self).count()
 
 
+class Client(models.Model):
+    class Meta:
+        verbose_name = verbose_name_plural = "受信機"
+        ordering = ("name", "id")
+
+    name = models.CharField("名前", max_length=200, blank=True)
+
+    hartbeat_at = models.DateTimeField("最終接続時刻", blank=True, null=True)
+    created_at = models.DateTimeField("登録日時", auto_now_add=True)
+    updated_at = models.DateTimeField("最終更新日時", auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Terminal(models.Model):
 
     class Meta:
@@ -122,11 +137,12 @@ class AttendLog(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = "入場履歴"
-        ordering = ("date",)
+        ordering = ("-date",)
 
     date = models.DateTimeField("確認日時")
     participant = models.ForeignKey(Participant)
     terminal = models.ForeignKey(Terminal, blank=True, null=True)
+    client = models.ForeignKey(Client, blank=True, null=True)
     venue = models.ForeignKey("program.Venue", blank=True, null=True)
     timespan = models.ForeignKey("program.Timespan", blank=True, null=True)
     program = models.ForeignKey("program.Program", blank=True, null=True)

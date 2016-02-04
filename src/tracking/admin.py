@@ -2,7 +2,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 from django.http import HttpResponse
-from tracking.models import Participant, AttendLog, Terminal
+from tracking.models import Participant, AttendLog, Client, Terminal
 from tracking.pdf import generate_sherets_pdf
 
 
@@ -23,6 +23,13 @@ class ParticipantAdmin(admin.ModelAdmin):
 
 admin.site.register(Participant, ParticipantAdmin)
 
+
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ("id", "name")
+
+admin.site.register(Client, ClientAdmin)
+
+
 class TerminalAdmin(admin.ModelAdmin):
     list_display = ("id", "mac", "name", "venue")
     list_filter = ("venue",)
@@ -31,6 +38,6 @@ admin.site.register(Terminal, TerminalAdmin)
 
 
 class AttendLogAdmin(admin.ModelAdmin):
-    list_display = ("id", "terminal", "venue", "program")
+    list_display = ("id", "date", "terminal", "client", "participant", "venue", "program")
 
 admin.site.register(AttendLog, AttendLogAdmin)
