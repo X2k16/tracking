@@ -59,7 +59,7 @@ router.register("programs", ProgramViewSet)
 class AudienceViewSet(mixins.ListModelMixin,
                                 mixins.RetrieveModelMixin,
                                 viewsets.GenericViewSet):
-    queryset = ProgramAttendance.objects.filter(is_enabled=True).values("program_id").annotate(count=models.Count("id"))
+    queryset = ProgramAttendance.objects.filter(is_enabled=True).values("program_id").order_by("program_id").annotate(count=models.Count("program_id"))
     serializer_class = AudienceSerializer
 
 router.register("audiences", AudienceViewSet, "audiences")
