@@ -67,8 +67,9 @@ class TouchSerializer(serializers.ModelSerializer):
 
         # Timespanの取得
         try:
-            t = (validated_data["date"]+datetime.timedelta(minutes=5)).time()
-            queryset = Timespan.objects.filter(end_at__gte=t)
+            t = (validated_data["date"]+datetime.timedelta(hours=9, minutes=5)).time()
+            print(t)
+            queryset = Timespan.objects.filter(start_at__lte=t, end_at__gte=t)
             queryset = queryset.order_by("start_at")
             validated_data["timespan"] = queryset[0]
         except IndexError:
