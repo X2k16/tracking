@@ -2,7 +2,7 @@
 import random
 from django.db import models
 from tracking.models import Participant
-
+from tracking.program.models import VenueAttendance
 
 class LotteryTicketManager(models.Manager):
 
@@ -10,6 +10,8 @@ class LotteryTicketManager(models.Manager):
         """抽選券の再生成"""
         self.get_queryset().delete()
         for participant in Participant.objects.all():
+            if not VenueAttendance.objects.filter(participant=participant, is_enabled=True, venue_id__lte=50).exists():
+                continue
             count = participant.lottery_count
             if count:
                 self.bulk_create([LotteryTicket(participant=participant) for i in range(count)])
