@@ -79,7 +79,7 @@ class Participant(User):
         ("不明", "わからない"),
         ("不参加", "参加したくない")
     )
-    will_attend = models.CharField("会場の設備はいかがでしたでしょうか？", max_length=20, choices=WILL_ATTEND_CHOICES, blank=True, null=True)
+    will_attend = models.CharField("次回も参加したいですか？", max_length=20, choices=WILL_ATTEND_CHOICES, blank=True, null=True)
     comment = models.TextField("ご意見・ご感想", blank=True)
 
     def __init__(self, *args, **kwargs):

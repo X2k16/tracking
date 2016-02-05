@@ -17,7 +17,7 @@ def token_login(request):
 
     if not user.is_answered():
         return redirect("participant_form")
-    return HttpResponseRedirect(settings.PROGRAM_REDIRECT_URL)
+    return render(request, "index.html", {"program_url": settings.PROGRAM_REDIRECT_URL})
 
 
 def unauthorized(request):

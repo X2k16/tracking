@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>アンケート回答済みです</p>
+
+  <br>
+  <p style="text-align: center;">セッション毎のアンケートにご協力をお願いします</p>
+  <a href="{% url "enquete_index" %}">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">アンケートに答える</button>
+  </a>
+  <br>
+  <a href="{{ program_url }}">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">プログラムを見る</button>
+  </a>
+  <br>
 {% endblock %}
